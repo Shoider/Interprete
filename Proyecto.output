@@ -1,0 +1,386 @@
+Terminals unused in grammar
+
+    FLOAT
+    SHORT
+    LONG
+    CHAR
+    VOID
+    IF
+    ELSE
+    WHILE
+    DO
+    FOR
+    SWITCH
+    CASE
+    DEFAULT
+    RETURN
+    BREAK
+    STATIC
+    CONST
+    NUMEROFLOAT
+    IGUALDAD
+    MENOR
+    MAYOR
+    MENORIGUAL
+    MAYORIGUAL
+    DIFERENTE
+    MULTIPLICACION
+    DIVISION
+    MODULO
+    SUMAASIG
+    RESTAASIG
+    MULTIPLICACIONASIG
+    DIVISIONASIG
+    MODULOASIG
+    INCREMENTO
+    DECREMENTO
+    ETIQUETA
+    SEPARACION
+    OTHER
+    CHART
+    PARENTESIS_ABIERTO
+    PARENTESIS_CERRADO
+    CORCHETE_ABIERTO
+    CORCHETE_CERRADO
+    BLOQUE_ABIERTO
+    BLOQUE_CERRADO
+    '+'
+    '-'
+
+
+Grammar
+
+    0 $accept: line $end
+
+    1 line: declaracion FL
+    2     | line declaracion FL
+    3     | EXITCMD FL
+    4     | PRINTF valor FL
+    5     | line PRINTF valor FL
+    6     | line EXITCMD FL
+
+    7 declaracion: IDENTIFICADOR ASIGNACION valor FL
+
+    8 valor: term
+    9      | valor SUMA term
+   10      | valor RESTA term
+
+   11 term: NUMERO
+   12     | IDENTIFICADOR
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '+' (43)
+    '-' (45)
+    error (256)
+    NUMERO <num> (258) 11
+    IDENTIFICADOR <id> (259) 7 12
+    PRINTF (260) 4 5
+    EXITCMD (261) 3 6
+    FL (262) 1 2 3 4 5 6 7
+    FLOAT (263)
+    SHORT (264)
+    LONG (265)
+    CHAR (266)
+    VOID (267)
+    IF (268)
+    ELSE (269)
+    WHILE (270)
+    DO (271)
+    FOR (272)
+    SWITCH (273)
+    CASE (274)
+    DEFAULT (275)
+    RETURN (276)
+    BREAK (277)
+    STATIC (278)
+    CONST (279)
+    NUMEROFLOAT (280)
+    ASIGNACION (281) 7
+    IGUALDAD (282)
+    MENOR (283)
+    MAYOR (284)
+    MENORIGUAL (285)
+    MAYORIGUAL (286)
+    DIFERENTE (287)
+    SUMA (288) 9
+    RESTA (289) 10
+    MULTIPLICACION (290)
+    DIVISION (291)
+    MODULO (292)
+    SUMAASIG (293)
+    RESTAASIG (294)
+    MULTIPLICACIONASIG (295)
+    DIVISIONASIG (296)
+    MODULOASIG (297)
+    INCREMENTO (298)
+    DECREMENTO (299)
+    ETIQUETA (300)
+    SEPARACION (301)
+    OTHER (302)
+    CHART (303)
+    PARENTESIS_ABIERTO (304)
+    PARENTESIS_CERRADO (305)
+    CORCHETE_ABIERTO (306)
+    CORCHETE_CERRADO (307)
+    BLOQUE_ABIERTO (308)
+    BLOQUE_CERRADO (309)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (57)
+        on left: 0
+    line (58)
+        on left: 1 2 3 4 5 6
+        on right: 0 2 5 6
+    declaracion <id> (59)
+        on left: 7
+        on right: 1 2
+    valor <num> (60)
+        on left: 8 9 10
+        on right: 4 5 7 9 10
+    term <num> (61)
+        on left: 11 12
+        on right: 8 9 10
+
+
+State 0
+
+    0 $accept: • line $end
+
+    IDENTIFICADOR  shift, and go to state 1
+    PRINTF         shift, and go to state 2
+    EXITCMD        shift, and go to state 3
+
+    line         go to state 4
+    declaracion  go to state 5
+
+
+State 1
+
+    7 declaracion: IDENTIFICADOR • ASIGNACION valor FL
+
+    ASIGNACION  shift, and go to state 6
+
+
+State 2
+
+    4 line: PRINTF • valor FL
+
+    NUMERO         shift, and go to state 7
+    IDENTIFICADOR  shift, and go to state 8
+
+    valor  go to state 9
+    term   go to state 10
+
+
+State 3
+
+    3 line: EXITCMD • FL
+
+    FL  shift, and go to state 11
+
+
+State 4
+
+    0 $accept: line • $end
+    2 line: line • declaracion FL
+    5     | line • PRINTF valor FL
+    6     | line • EXITCMD FL
+
+    $end           shift, and go to state 12
+    IDENTIFICADOR  shift, and go to state 1
+    PRINTF         shift, and go to state 13
+    EXITCMD        shift, and go to state 14
+
+    declaracion  go to state 15
+
+
+State 5
+
+    1 line: declaracion • FL
+
+    FL  shift, and go to state 16
+
+
+State 6
+
+    7 declaracion: IDENTIFICADOR ASIGNACION • valor FL
+
+    NUMERO         shift, and go to state 7
+    IDENTIFICADOR  shift, and go to state 8
+
+    valor  go to state 17
+    term   go to state 10
+
+
+State 7
+
+   11 term: NUMERO •
+
+    $default  reduce using rule 11 (term)
+
+
+State 8
+
+   12 term: IDENTIFICADOR •
+
+    $default  reduce using rule 12 (term)
+
+
+State 9
+
+    4 line: PRINTF valor • FL
+    9 valor: valor • SUMA term
+   10      | valor • RESTA term
+
+    FL     shift, and go to state 18
+    SUMA   shift, and go to state 19
+    RESTA  shift, and go to state 20
+
+
+State 10
+
+    8 valor: term •
+
+    $default  reduce using rule 8 (valor)
+
+
+State 11
+
+    3 line: EXITCMD FL •
+
+    $default  reduce using rule 3 (line)
+
+
+State 12
+
+    0 $accept: line $end •
+
+    $default  accept
+
+
+State 13
+
+    5 line: line PRINTF • valor FL
+
+    NUMERO         shift, and go to state 7
+    IDENTIFICADOR  shift, and go to state 8
+
+    valor  go to state 21
+    term   go to state 10
+
+
+State 14
+
+    6 line: line EXITCMD • FL
+
+    FL  shift, and go to state 22
+
+
+State 15
+
+    2 line: line declaracion • FL
+
+    FL  shift, and go to state 23
+
+
+State 16
+
+    1 line: declaracion FL •
+
+    $default  reduce using rule 1 (line)
+
+
+State 17
+
+    7 declaracion: IDENTIFICADOR ASIGNACION valor • FL
+    9 valor: valor • SUMA term
+   10      | valor • RESTA term
+
+    FL     shift, and go to state 24
+    SUMA   shift, and go to state 19
+    RESTA  shift, and go to state 20
+
+
+State 18
+
+    4 line: PRINTF valor FL •
+
+    $default  reduce using rule 4 (line)
+
+
+State 19
+
+    9 valor: valor SUMA • term
+
+    NUMERO         shift, and go to state 7
+    IDENTIFICADOR  shift, and go to state 8
+
+    term  go to state 25
+
+
+State 20
+
+   10 valor: valor RESTA • term
+
+    NUMERO         shift, and go to state 7
+    IDENTIFICADOR  shift, and go to state 8
+
+    term  go to state 26
+
+
+State 21
+
+    5 line: line PRINTF valor • FL
+    9 valor: valor • SUMA term
+   10      | valor • RESTA term
+
+    FL     shift, and go to state 27
+    SUMA   shift, and go to state 19
+    RESTA  shift, and go to state 20
+
+
+State 22
+
+    6 line: line EXITCMD FL •
+
+    $default  reduce using rule 6 (line)
+
+
+State 23
+
+    2 line: line declaracion FL •
+
+    $default  reduce using rule 2 (line)
+
+
+State 24
+
+    7 declaracion: IDENTIFICADOR ASIGNACION valor FL •
+
+    $default  reduce using rule 7 (declaracion)
+
+
+State 25
+
+    9 valor: valor SUMA term •
+
+    $default  reduce using rule 9 (valor)
+
+
+State 26
+
+   10 valor: valor RESTA term •
+
+    $default  reduce using rule 10 (valor)
+
+
+State 27
+
+    5 line: line PRINTF valor FL •
+
+    $default  reduce using rule 5 (line)
